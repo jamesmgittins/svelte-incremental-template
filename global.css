@@ -62,3 +62,11 @@ button:not(:disabled):active {
 button:focus {
 	border-color: #666;
 }
+
+button:active {
+	box-shadow:inset 5px 5px 8px #666;
+}
+
+button:disabled {
+	color: #999;
+}

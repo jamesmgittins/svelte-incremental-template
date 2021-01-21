@@ -1,17 +1,19 @@
 <script lang="ts">
-    import { formatNumber } from '../gamelogic/utils';
-    import MoneyButton from '../components/MoneyButton.svelte';
-    import {gameModel} from '../gamelogic/gamemodel';
-    import GeneratorList from '../components/GeneratorList.svelte';
+    import { formatNumber } from "../gamelogic/utils";
+    import MoneyButton from "../components/MoneyButton.svelte";
+    import { gameModel } from "../gamelogic/gamemodel";
+    import GeneratorList from "../components/GeneratorList.svelte";
 </script>
 
 <h1>Svelte Incremental Game Template</h1>
-<p>The current amount of money is <strong>${formatNumber($gameModel.saveData.money, 2)}</strong></p>
-<MoneyButton/>
+<p>
+    The current amount of money is
+    <strong>${formatNumber($gameModel.saveData.money, 2)}</strong>
+</p>
+<MoneyButton />
 <div>
-    <GeneratorList/>
+    <GeneratorList />
 </div>
-
 
 <style>
     div {
@@ -20,8 +22,8 @@
     }
 
     @media screen and (min-width: 992px) {
-		div {
+        div {
             grid-template-columns: repeat(2, 50%);
-		}
-	}
+        }
+    }
 </style>

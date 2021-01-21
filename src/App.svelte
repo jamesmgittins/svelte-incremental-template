@@ -10,7 +10,7 @@
 	import Home from "./routes/Home.svelte";
 	import Options from "./routes/Options.svelte";
 	import NotFound from './routes/NotFound.svelte';
-import Notifications from './components/Notifications.svelte';
+	import Notifications from './components/Notifications.svelte';
 
 	const routes = {
 		'/': Home,
@@ -23,7 +23,7 @@ import Notifications from './components/Notifications.svelte';
 
 
 <div>
-	<!-- This is the HTML section where the main navigation menu lives -->
+	<!-- This is the HTML section where the main navigation menu lives, using emojis for quick and dirty icons -->
 	<ul>
 		<li><a href="#/">🏠 Home</a></li>
 		<li><a href="#/options">⚙️ Options</a></li>

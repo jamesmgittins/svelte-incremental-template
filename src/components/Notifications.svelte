@@ -5,6 +5,10 @@
     import { messageQueue } from '../gamelogic/notifications';
 </script>
 
+<!-- 
+    Layout for the list of notification messages 
+    If a message becomes more complex it may need to be broken out into a separate component
+-->
 <div>
     {#each $messageQueue as message (message.id)}
         <span transition:fly={{x: 500, duration : 500, easing: sineInOut}} animate:flip>{message.message}</span>

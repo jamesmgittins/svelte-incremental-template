@@ -6,13 +6,14 @@
 
     // some svelte magic that means whenever the gameModel is updated we will refresh this generator
     $: $gameModel, generator = generator;
-    
+
     function purchase() {
         generator.purchase();
         generator = generator;
     }
 </script>
 
+<!-- The layout for single generator upgrade -->
 <div>
     <strong>{generator.name}</strong>
     <span>owned: <strong>{formatWhole(generator.getTotalCount())}</strong></span>

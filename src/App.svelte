@@ -7,6 +7,7 @@
 
 <script lang="ts">
 	import Router from 'svelte-spa-router'
+	import { location } from 'svelte-spa-router'
 	import Home from "./routes/Home.svelte";
 	import Options from "./routes/Options.svelte";
 	import NotFound from './routes/NotFound.svelte';
@@ -25,8 +26,8 @@
 <div>
 	<!-- This is the HTML section where the main navigation menu lives, using emojis for quick and dirty icons -->
 	<ul>
-		<li><a href="#/">🏠 Home</a></li>
-		<li><a href="#/options">⚙️ Options</a></li>
+		<li><a href="#/" class:active={$location == '/'}>🏠 Home</a></li>
+		<li><a href="#/options" class:active={$location == '/options'}>⚙️ Options</a></li>
 	</ul>
 
 	<!-- Add the Notifications component so messages appear on every page -->
@@ -55,7 +56,7 @@
 		padding:0.5rem;
 	}
 
-	a:hover {
+	a:hover, a.active {
 		background-color: #fff;
 	}
 

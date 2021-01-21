@@ -3,7 +3,9 @@
 
 # [DEMO](https://jamesmgittins.github.io/svelte-incremental-template/)
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/jamesmgittins/svelte-incremental-template.
+This is a project template for building an incremental game with [Svelte](https://svelte.dev). It lives at https://github.com/jamesmgittins/svelte-incremental-template.
+
+This project includes svelte-spa-router for hash routing. And lz-string for data compression before it is stored in local storage.
 
 To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
 

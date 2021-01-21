@@ -35,6 +35,7 @@ export function startGameLoop() {
     interval = setInterval(gameLoop, ms);
 }
 
+// some datetime values we will be using
 let lastRunTime = Date.now();
 let lastSaved = Date.now();
 
@@ -44,7 +45,7 @@ let lastSaved = Date.now();
 let deltaT : number = 0;
 
 /**
- * The game loop function that runs many times per second in the background.
+ * The game loop function that runs multiple times per second in the background.
  */
 function gameLoop() {
     let currentTime = Date.now();

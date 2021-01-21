@@ -11,7 +11,7 @@
 -->
 <div>
     {#each $messageQueue as message (message.id)}
-        <span transition:fly={{x: 500, duration : 500, easing: sineInOut}} animate:flip>{message.message}</span>
+        <span transition:fly={{x: 200, duration : 500, easing: sineInOut}} animate:flip>{message.message}</span>
     {/each}
 </div>
 

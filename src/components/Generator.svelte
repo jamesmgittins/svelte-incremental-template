@@ -1,6 +1,6 @@
 <script lang="ts">
     import { gameModel } from '../gamelogic/gamemodel';
-    import {Generator} from '../gamelogic/upgrades';
+    import type {Generator} from '../gamelogic/upgrades';
     import { formatNumber, formatWhole } from '../gamelogic/utils';
     export let generator : Generator;
 

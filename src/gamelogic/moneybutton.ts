@@ -17,12 +17,16 @@ let buttonClickValue = 1;
 
 /**
  * Function for clicking the button.
- * This call be called by actually clicking the button.
- * Or by generators that click the button automatically.
+ * This can be called by actually clicking the button.
+ * Or by the generators that click the button automatically.
  * @param times the number of times to click (defaults to 1)
  */
 export function clickTheButton(times : number = 1) {
+
+    // add money value * number of clicks
     gameModelInstance.addMoney(buttonClickValue * times);
+
+    // update the svelte store
     gameModel.update(m => m = gameModelInstance);
 }
 

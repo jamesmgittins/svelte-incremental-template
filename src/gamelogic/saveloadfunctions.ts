@@ -48,7 +48,7 @@ export function saveSaveGame(saveData: SaveData) {
         saveData.lastSaved = Date.now();
 
         try {
-            // Use JSON.stringift to turn the object into a string, then compress with lz-string,
+            // Use JSON.stringify to turn the object into a string, then compress with lz-string,
             // before setting it in localstorage
             localStorage.setItem(storageName, compress(JSON.stringify(saveData)));
 

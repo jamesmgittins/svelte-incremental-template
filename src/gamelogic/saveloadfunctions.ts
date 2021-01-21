@@ -7,12 +7,13 @@ const storageName = 'sveltedata';
  * Load the save data from localstorage.
  * If no data is found just return a new SaveData with default values.
  */
-export function loadSaveGame() : SaveData {
-    // see if data exists first
-    if (localStorage.getItem(storageName)) {
+export function loadSaveGame(): SaveData {
 
-        // using a try/catch in case this fails for some reason
-        try {
+    // using a try/catch in case this fails for some reason
+    try {
+
+        // see if data exists first
+        if (localStorage.getItem(storageName)) {
 
             // get data from localstorage, decompress it using lz-string, then parse it back into a javascript object
             let saveData = JSON.parse(decompress(localStorage.getItem(storageName)));
@@ -23,22 +24,23 @@ export function loadSaveGame() : SaveData {
             // migrate the data so we know it is good to use
             dataMigrate(saveData);
 
-            return saveData;    
-
-        } catch (error) {
-            console.error(error); // log the error so at least we can see it
+            return saveData;
         }
-        
-    } else {
+
+        // if nothing in storage just create a new one
         return new SaveData();
+
+    } catch (error) {
+        console.error(error); // log the error so at least we can see it
     }
+
 }
 
 /**
  * Saves the data to localstorage
  * @param saveData SaveData
  */
-export function saveSaveGame(saveData : SaveData) {
+export function saveSaveGame(saveData: SaveData) {
     // if save data exists
     if (saveData) {
 
@@ -53,7 +55,7 @@ export function saveSaveGame(saveData : SaveData) {
         } catch (error) {
             console.error(error); // log the error so at least we can see it
         }
-        
+
     }
 }
 
@@ -61,7 +63,7 @@ export function saveSaveGame(saveData : SaveData) {
  * This function will help to update any data that was saved before new variables were added.
  * Otherwise this can cause errors when something you expected to be there is not there.
  */
-function dataMigrate(saveData : SaveData) {
+function dataMigrate(saveData: SaveData) {
 
     // create a new saveData to use as a reference
     let master = new SaveData();
@@ -83,7 +85,6 @@ function dataMigrate(saveData : SaveData) {
  * Resets save game in localstorage and resets the gameModel
  */
 export function resetSaveGame() {
-    
 
     // remove from local storage
     localStorage.removeItem(storageName);

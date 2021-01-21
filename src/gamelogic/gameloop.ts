@@ -1,22 +1,26 @@
-import { GameModel, gameModel } from "./gamemodel";
+import { gameModel, GameModel } from "./gamemodel";
 import { sendMessage } from "./notifications";
 import { saveSaveGame } from "./saveloadfunctions";
 import { generators } from "./upgrades";
 import { formatWhole } from "./utils";
 
 /**
- * Reference to the GameModel
+ * Reference to the GameModel.
+ * We use the subscribe function so if the store is updated our local instance will also update.
  */
 let gameModelInstance : GameModel;
-
-// Subscribe to the store so our local copy of game model is updated whenever gamemodel changes
-gameModel.subscribe(instance => gameModelInstance = instance);
+gameModel.subscribe(m => gameModelInstance = m);
 
 /**
  * how often to run the loop. 200ms = 5 times per second 
  * 200ms or 100ms is usually fast enough to feel responsive without wasting too much CPU time
  */ 
 const ms = 200;
+
+/**
+ * How often to auto save the game. 60_000 = 60 seconds.
+ */
+const autoSaveTime = 60_000;
 
 /**
  * A reference to the interval that can be used to stop it if we need to
@@ -35,7 +39,7 @@ export function startGameLoop() {
     interval = setInterval(gameLoop, ms);
 }
 
-// some datetime values we will be using
+// some datetime values we will be using to calculate how much time has passed
 let lastRunTime = Date.now();
 let lastSaved = Date.now();
 
@@ -50,8 +54,8 @@ let deltaT : number = 0;
 function gameLoop() {
     let currentTime = Date.now();
 
-    // if lastSaved was more than 30 seconds ago we should save the game
-    if (currentTime - lastSaved > 30_000) {
+    // if lastSaved was more than 60 seconds ago we should save the game
+    if (currentTime - lastSaved > autoSaveTime) {
         lastSaved = currentTime;
         saveSaveGame(gameModelInstance.saveData);
         sendMessage("Game auto-saved");

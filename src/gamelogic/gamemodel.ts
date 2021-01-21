@@ -61,3 +61,11 @@ export class GameModel {
  * A writable store of the gameModel that can be accessed from other parts of the application.
  */
 export const gameModel = writable(new GameModel());
+
+/**
+ * A function that can be called anywhere to update the game model in the svelte store.
+ * This will trigger the svelte components to re-evaluate and update their content.
+ */
+export function updateGameModel() {
+    gameModel.update(m => m = m);
+}

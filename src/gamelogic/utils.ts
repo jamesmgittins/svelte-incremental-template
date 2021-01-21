@@ -5,7 +5,7 @@ const trillion = 1_000_000_000_000;
 const quadrilion = 1000000000000000;
 
 /**
- * Function to format a number for display on screen
+ * Function to format a number for display on screen.
  * @param input Number to format
  * @param decimals How many decimals do you want
  */
@@ -27,8 +27,8 @@ export function formatNumber(input: number, decimals: number) {
 }
 
 /**
- * Function to format a number for display on screen
- * Will only show decimal places when the number is abbreviated
+ * Function to format a number for display on screen.
+ * Will only show decimal places when the number is abbreviated.
  * @param input Number to format
  */
 export function formatWhole(input: number) {

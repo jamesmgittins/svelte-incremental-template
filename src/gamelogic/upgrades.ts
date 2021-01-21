@@ -1,17 +1,16 @@
-import { GameModel, gameModel } from "./gamemodel";
+import { gameModel, GameModel, updateGameModel } from "./gamemodel";
 import { clickTheButton } from "./moneybutton";
 import { saveSaveGame } from "./saveloadfunctions";
 
 /**
- * Reference to the GameModel
+ * Reference to the GameModel.
+ * We use the subscribe function so if the store is updated our local instance will also update.
  */
 let gameModelInstance : GameModel;
-
-// Subscribe to the store so our local copy of game model is updated whenever gamemodel changes
-gameModel.subscribe(instance => gameModelInstance = instance);
+gameModel.subscribe(m => gameModelInstance = m);
 
 /**
- * Abstract class that defines common Upgrade properties
+ * Abstract class that defines common Upgrade properties.
  */
 abstract class Upgrade {
     public id: number; // unique id
@@ -29,7 +28,7 @@ abstract class Upgrade {
     }
 
     /**
-     * Get the count of how many of this upgrade have been bought
+     * Get the count of how many of this upgrade have been bought.
      */
     getBoughtCount() : number {
         return gameModelInstance.saveData.upgradesBought[this.id] || 0;
@@ -37,44 +36,48 @@ abstract class Upgrade {
 
 
     /**
-     * Get the count of how many of this upgrade have been generated
+     * Get the count of how many of this upgrade have been generated.
      */
     getGeneratedCount() : number {
         return gameModelInstance.saveData.upgradesGenerated[this.id] || 0;
     }
 
     /**
-     * Get the total count of this upgrade
+     * Get the total count of this upgrade.
      */
     getTotalCount() : number {
         return this.getBoughtCount() + this.getGeneratedCount();
     }
 
     /**
-     * Get the current price to buy one of these upgrades
+     * Get the current price to buy one of these upgrades.
+     * Formula to calculate the price is basePrice * (multiplier ^ bought)
      */
     getPrice(): number {
         return this.basePrice * Math.pow(this.multiplier, this.getBoughtCount());
     }
 
     /**
-     * Attempt to purchase this upgrade
+     * Attempt to purchase this upgrade.
+     * Returns true if it was purchased, false if not.
      */
-    purchase() {
+    purchase() : boolean {
         if (gameModelInstance.spendMoney(this.getPrice())) {
             // increase the amount owned
             gameModelInstance.saveData.upgradesBought[this.id] = this.getBoughtCount() + 1;
             // Update the svelte store
-            gameModel.update(m => m = gameModelInstance);
+            updateGameModel();
             // Save game to localStorage
             saveSaveGame(gameModelInstance.saveData);
+            return true;
         }
+        return false;
     }
 }
 
 /**
  * Class to define how a Generator upgrade behaves.
- * Extends Upgrade, meaning it inherits all of the properties.
+ * Extends Upgrade, meaning it inherits all of the properties and functions.
  */
 export class Generator extends Upgrade {
     // id of the upgrade this one generates
@@ -118,7 +121,7 @@ export class Generator extends Upgrade {
                 this.generated -= Math.floor(this.generated);
 
                 // update the svelte store
-                gameModel.update(m => m = gameModelInstance);
+                updateGameModel();
             }
         }
     }
@@ -132,7 +135,7 @@ export const generators = [
         1, // id
         'Auto Clicker', // name
         'Automatically clicks the button every 10 seconds', // description
-        25, // base price
+        10, // base price
         1.1, // multiplier
         null, // going to be lazy here and use null to describe clicking the button, for others it will be the id
         10 // time per generated
@@ -159,7 +162,7 @@ export const generators = [
         4,
         'Auto Clicker Buyer Buyer Buyer',
         'Automatically buys an auto clicker buyer buyer every 10 seconds',
-        25000,
+        50000,
         1.4,
         3,
         10
@@ -175,7 +178,7 @@ export const generators = [
     let ids = [];
     generators.forEach(e => {
         if (ids[e.id]) {
-            alert(`Generator id: ${e.id} has been used more than once. All upgrade ids must be unique`);
+            alert(`Generator id: ${e.id} has been used more than once. All upgrade ids must be unique!`);
         }
         ids[e.id] = true;
     })

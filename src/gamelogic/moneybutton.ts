@@ -1,13 +1,11 @@
-import { GameModel, gameModel } from "./gamemodel";
+import { gameModel, GameModel, updateGameModel } from "./gamemodel";
 
 /**
- * Reference to the GameModel
+ * Reference to the GameModel.
+ * We use the subscribe function so if the store is updated our local instance will also update.
  */
 let gameModelInstance : GameModel;
-
-// Subscribe to the store so our local copy of game model is updated whenever gamemodel changes
-gameModel.subscribe(instance => gameModelInstance = instance);
-
+gameModel.subscribe(m => gameModelInstance = m);
 
 /**
  * Button click value
@@ -27,7 +25,7 @@ export function clickTheButton(times : number = 1) {
     gameModelInstance.addMoney(buttonClickValue * times);
 
     // update the svelte store
-    gameModel.update(m => m = gameModelInstance);
+    updateGameModel();
 }
 
 

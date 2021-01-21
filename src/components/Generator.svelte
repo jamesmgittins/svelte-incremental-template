@@ -9,6 +9,8 @@
 
     function purchase() {
         generator.purchase();
+
+        // setting the generator to itself will cause the component to update
         generator = generator;
     }
 </script>

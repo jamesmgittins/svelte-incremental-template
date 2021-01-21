@@ -67,6 +67,10 @@ button:active {
 	box-shadow:inset 5px 5px 8px #666;
 }
 
+button:hover {
+	color:#000;
+}
+
 button:disabled {
 	color: #999;
 }

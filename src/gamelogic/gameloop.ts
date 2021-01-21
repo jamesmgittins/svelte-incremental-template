@@ -72,7 +72,9 @@ function gameLoop() {
 
 
 /**
- * Function to update all game data based on time
+ * Function to update all game data based on time.
+ * This is where all idle calculations should start so they can be 
+ * used by the main loop and the offline progress function.
  * @param deltaT time in seconds since last update
  */
 function gameUpdate(deltaT : number) {

@@ -5,7 +5,9 @@
 
 This is a project template for building an incremental game with [Svelte](https://svelte.dev) and **TypeScript**. It lives at https://github.com/jamesmgittins/svelte-incremental-template.
 
-This project includes **svelte-spa-router** for hash routing. And **lz-string** for data compression before it is stored in local storage.
+This project includes **svelte-spa-router** for hash routing. And **lz-string** for data compression.
+
+Basic incremental game functionality has been implemented, including a main loop, some example upgrades, saving, loading, and offline progress.
 
 To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
 

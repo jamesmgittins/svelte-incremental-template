@@ -1,0 +1,101 @@
+import { GameModel, gameModel } from "./gamemodel";
+import { sendMessage } from "./notifications";
+import { saveSaveGame } from "./saveloadfunctions";
+import { generators } from "./upgrades";
+import { formatWhole } from "./utils";
+
+/**
+ * Reference to the GameModel
+ */
+let gameModelInstance : GameModel;
+
+// Subscribe to the store so our local copy of game model is updated whenever gamemodel changes
+gameModel.subscribe(instance => gameModelInstance = instance);
+
+/**
+ * how often to run the loop. 200ms = 5 times per second 
+ * 200ms or 100ms is usually fast enough to feel responsive without wasting too much CPU time
+ */ 
+const ms = 200;
+
+/**
+ * A reference to the interval that can be used to stop it if we need to
+ */ 
+let interval : number;
+
+/**
+ * This function will start the game loop running at the desired rate, and save a reference to the interval so it can be stopped later
+ */
+export function startGameLoop() {
+    
+    console.log('calculating offline progess')
+    calculateOfflineProgress();
+
+    console.log('starting the game loop');
+    interval = setInterval(gameLoop, ms);
+}
+
+let lastRunTime = Date.now();
+let lastSaved = Date.now();
+
+/**
+ * deltaT or delta time is the time difference in seconds since the last time the loop ran
+ */ 
+let deltaT : number = 0;
+
+/**
+ * The game loop function that runs many times per second in the background.
+ */
+function gameLoop() {
+    let currentTime = Date.now();
+
+    // if lastSaved was more than 30 seconds ago we should save the game
+    if (currentTime - lastSaved > 30_000) {
+        lastSaved = currentTime;
+        saveSaveGame(gameModelInstance.saveData);
+        sendMessage("Game auto-saved");
+    }
+
+    // calculate deltaT based on the current time and the last run time
+    // we are using Math.max and Math.min to make sure deltaT is between 0 and 1 seconds
+    deltaT = Math.max(Math.min((currentTime - lastRunTime) / 1000, 1), 0);
+    lastRunTime = currentTime;
+
+    // Now we know what deltaT is we can update the game
+    gameUpdate(deltaT);
+}
+
+
+/**
+ * Function to update all game data based on time
+ * @param deltaT time in seconds since last update
+ */
+function gameUpdate(deltaT : number) {
+
+    // update each generator
+    generators.forEach(generator => generator.update(deltaT));
+}
+
+
+/**
+ * Function to calculate the offline progress
+ */
+function calculateOfflineProgress() {
+
+    // note how much we had before
+    let moneyBefore = gameModelInstance.saveData.money;
+
+    // calculate time in seconds since last saved
+    let currentTime = Date.now();
+    let offlineDeltaT = Math.max((currentTime - gameModelInstance.saveData.lastSaved) / 1000, 0);
+
+    console.log(`Offline for ${offlineDeltaT} seconds`);
+
+    // perform the game update for the total time
+    gameUpdate(offlineDeltaT);
+
+    // calculate total earned
+    let moneyEarned = gameModelInstance.saveData.money - moneyBefore;
+
+    sendMessage(`You have earned $${formatWhole(moneyEarned)} while offline!`);
+}

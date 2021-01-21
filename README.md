@@ -1,7 +1,7 @@
 
 # svelte incremental game template
 
-[DEMO](https://jamesmgittins.github.io/svelte-incremental-template/)
+# [DEMO](https://jamesmgittins.github.io/svelte-incremental-template/)
 
 This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/jamesmgittins/svelte-incremental-template.
 

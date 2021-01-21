@@ -19,7 +19,7 @@ let idNumber = 0;
  * Simple class to hold a string and an ID used to display messages to the player
  * This could be expanded to include icons, sound effects, css classes for animations etc
  */
-class Message {
+export class Message {
     public message : String;
     public id : number;
 

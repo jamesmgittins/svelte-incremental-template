@@ -13,7 +13,6 @@ To create a new project based on this template using [degit](https://github.com/
 
 ```bash
 npx degit jamesmgittins/svelte-incremental-template my-game
-cd my-game
 ```
 
 *Note that you will need to have [Node.js](https://nodejs.org) installed.*

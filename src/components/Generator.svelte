@@ -15,7 +15,7 @@
     }
 </script>
 
-<!-- The layout for single generator upgrade -->
+<!-- The layout for a single generator upgrade -->
 <div>
     <strong>{generator.name}</strong>
     <span>owned: <strong>{formatWhole(generator.getTotalCount())}</strong></span>

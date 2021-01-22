@@ -23,7 +23,6 @@
         top: 1rem;
         right:1rem;
         display: grid;
-        text-align: right;
         justify-items: end;
     }
 

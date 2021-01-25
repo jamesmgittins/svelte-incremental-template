@@ -6,7 +6,7 @@
     /**
      * On click action to save the game in localstorage
      */
-    let saveGame = function() {
+    function saveGame() {
         saveSaveGame($gameModel.saveData);
         sendMessage("Game has been saved");
     }
@@ -14,7 +14,7 @@
     /**
      * On click action to reset the save game in localstorage
      */
-    let resetGame = function() {
+    function resetGame() {
         if (confirm('Are you sure you want to reset your game?')) {
             resetSaveGame();
             sendMessage("Save Data has been wiped");

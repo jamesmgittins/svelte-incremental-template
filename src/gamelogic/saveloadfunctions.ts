@@ -1,6 +1,9 @@
 import { GameModel, gameModel, SaveData } from "./gamemodel";
 import { compress, decompress } from 'lz-string';
 
+/**
+ * This is the key the save data will be stored under inside localstorage
+ */
 const storageName = 'sveltedata';
 
 /**

@@ -52,7 +52,7 @@ let deltaT : number = 0;
  * The game loop function that runs multiple times per second in the background.
  */
 function gameLoop() {
-    let currentTime = Date.now();
+    const currentTime = Date.now();
 
     // if lastSaved was more than 60 seconds ago we should save the game
     if (currentTime - lastSaved > autoSaveTime) {
@@ -90,11 +90,11 @@ function gameUpdate(deltaT : number) {
 function calculateOfflineProgress() {
 
     // note how much we had before
-    let moneyBefore = gameModelInstance.saveData.money;
+    const moneyBefore = gameModelInstance.saveData.money;
 
     // calculate time in seconds since last saved
-    let currentTime = Date.now();
-    let offlineDeltaT = Math.max((currentTime - gameModelInstance.saveData.lastSaved) / 1000, 0);
+    const currentTime = Date.now();
+    const offlineDeltaT = Math.max((currentTime - gameModelInstance.saveData.lastSaved) / 1000, 0);
 
     console.log(`Offline for ${offlineDeltaT} seconds`);
 
@@ -102,7 +102,7 @@ function calculateOfflineProgress() {
     gameUpdate(offlineDeltaT);
 
     // calculate total earned
-    let moneyEarned = gameModelInstance.saveData.money - moneyBefore;
+    const moneyEarned = gameModelInstance.saveData.money - moneyBefore;
 
     sendMessage(`You have earned $${formatWhole(moneyEarned)} while offline!`);
 }

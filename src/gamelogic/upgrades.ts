@@ -100,11 +100,11 @@ export class Generator extends Upgrade {
     update(deltaT : number) {
 
         // only do something if we have 1 or more of these
-        let count = this.getTotalCount();
+        const count = this.getTotalCount();
         if (count > 0) {
 
             // update the internal generated number based on time
-            let generatedPerSecond = count / this.generateTime;
+            const generatedPerSecond = count / this.generateTime;
             this.generated += generatedPerSecond * deltaT;
 
             // if we have generated at least 1
@@ -175,7 +175,7 @@ export const generators = [
  * that the upgrade ids are all unique. This is only for validation.
  */
 (() => {
-    let ids = [];
+    const ids = [];
     generators.forEach(e => {
         if (ids[e.id]) {
             alert(`Generator id: ${e.id} has been used more than once. All upgrade ids must be unique!`);

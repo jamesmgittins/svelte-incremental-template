@@ -35,7 +35,7 @@ export class Message {
  */
 export function sendMessage(message : string) {
     // create a message object
-    let notification = new Message(message);
+    const notification = new Message(message);
 
     // add the message to the message queue
     messageQueue.update(m => m = [...m, notification]);

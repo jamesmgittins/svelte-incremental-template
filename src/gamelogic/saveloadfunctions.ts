@@ -1,4 +1,4 @@
-import { SaveData, updateGameModel } from "./gamemodel";
+import { GameModel, gameModel, SaveData } from "./gamemodel";
 import { compress, decompress } from 'lz-string';
 
 const storageName = 'sveltedata';
@@ -90,5 +90,5 @@ export function resetSaveGame() {
     localStorage.removeItem(storageName);
 
     // update the stored gameModel with a new one
-    updateGameModel();
+    gameModel.update(g => g = new GameModel());
 }

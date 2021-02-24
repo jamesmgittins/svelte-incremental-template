@@ -8,7 +8,7 @@ export const messageQueue = writable([] as Message[]);
 /**
  * How long should each message be displayed in ms
  */ 
-const messageTime : number = 4000;
+const messageTime = 4000;
 
 /**
  * Used to get a unique id for each message
@@ -20,7 +20,7 @@ let idNumber = 0;
  * This could be expanded to include icons, sound effects, css classes for animations etc.
  */
 export class Message {
-    public message : String;
+    public message : string;
     public id : number;
 
     constructor(message : string) {

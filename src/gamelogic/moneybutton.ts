@@ -11,7 +11,7 @@ gameModel.subscribe(m => gameModelInstance = m);
  * Button click value
  * @TODO Add functionality to increase the value of the button
  */
-let buttonClickValue = 1;
+const buttonClickValue = 1;
 
 /**
  * Function for clicking the button.
@@ -21,11 +21,11 @@ let buttonClickValue = 1;
  */
 export function clickTheButton(times : number = 1) {
 
-    // add money value * number of clicks
-    gameModelInstance.addMoney(buttonClickValue * times);
+	// add money value * number of clicks
+	gameModelInstance.addMoney(buttonClickValue * times);
 
-    // update the svelte store
-    updateGameModel();
+	// update the svelte store
+	updateGameModel();
 }
 
 
@@ -33,5 +33,5 @@ export function clickTheButton(times : number = 1) {
  * Gets the current value of the button
  */
 export function getButtonClickValue() : number {
-    return buttonClickValue;
+	return buttonClickValue;
 }

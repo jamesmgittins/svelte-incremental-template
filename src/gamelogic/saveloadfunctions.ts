@@ -12,30 +12,30 @@ const storageName = 'sveltedata';
  */
 export function loadSaveGame(): SaveData {
 
-    // using a try/catch in case this fails for some reason
-    try {
+   // using a try/catch in case this fails for some reason
+   try {
 
-        // see if data exists first
-        if (localStorage.getItem(storageName)) {
+      // see if data exists first
+      if (localStorage.getItem(storageName)) {
 
-            // get data from localstorage, decompress it using lz-string, then parse it back into a javascript object
-            let saveData = JSON.parse(decompress(localStorage.getItem(storageName)));
+         // get data from localstorage, decompress it using lz-string, then parse it back into a javascript object
+         const saveData = JSON.parse(decompress(localStorage.getItem(storageName)));
 
-            console.log('SaveData loaded:');
-            console.log(saveData);
+         console.log('SaveData loaded:');
+         console.log(saveData);
 
-            // migrate the data so we know it is good to use
-            dataMigrate(saveData);
+         // migrate the data so we know it is good to use
+         dataMigrate(saveData);
 
-            return saveData;
-        }
+         return saveData;
+      }
 
-        // if nothing in storage just create a new one
-        return new SaveData();
+      // if nothing in storage just create a new one
+      return new SaveData();
 
-    } catch (error) {
-        console.error(error); // log the error so at least we can see it
-    }
+   } catch (error) {
+      console.error(error); // log the error so at least we can see it
+   }
 
 }
 
@@ -44,22 +44,22 @@ export function loadSaveGame(): SaveData {
  * @param saveData SaveData
  */
 export function saveSaveGame(saveData: SaveData) {
-    // if save data exists
-    if (saveData) {
+   // if save data exists
+   if (saveData) {
 
-        // set the last saved time
-        saveData.lastSaved = Date.now();
+      // set the last saved time
+      saveData.lastSaved = Date.now();
 
-        try {
-            // Use JSON.stringify to turn the object into a string, then compress with lz-string,
-            // before setting it in localstorage
-            localStorage.setItem(storageName, compress(JSON.stringify(saveData)));
+      try {
+         // Use JSON.stringify to turn the object into a string, then compress with lz-string,
+         // before setting it in localstorage
+         localStorage.setItem(storageName, compress(JSON.stringify(saveData)));
 
-        } catch (error) {
-            console.error(error); // log the error so at least we can see it
-        }
+      } catch (error) {
+         console.error(error); // log the error so at least we can see it
+      }
 
-    }
+   }
 }
 
 /**
@@ -68,19 +68,19 @@ export function saveSaveGame(saveData: SaveData) {
  */
 function dataMigrate(saveData: SaveData) {
 
-    // create a new saveData to use as a reference
-    let master = new SaveData();
+   // create a new saveData to use as a reference
+   const master = new SaveData();
 
-    // get an array of the properties of saveData
-    let keys = Object.getOwnPropertyNames(master);
+   // get an array of the properties of saveData
+   const keys = Object.getOwnPropertyNames(master);
 
-    // check each property to make sure it exists on the save data
-    keys.forEach((prop) => {
-        if (typeof saveData[prop] === 'undefined') {
-            console.log(`${prop} was undefined, adding it to saveData`);
-            saveData[prop] = master[prop];
-        }
-    })
+   // check each property to make sure it exists on the save data
+   keys.forEach((prop) => {
+      if (typeof saveData[prop] === 'undefined') {
+         console.log(`${prop} was undefined, adding it to saveData`);
+         saveData[prop] = master[prop];
+      }
+   })
 }
 
 
@@ -89,9 +89,9 @@ function dataMigrate(saveData: SaveData) {
  */
 export function resetSaveGame() {
 
-    // remove from local storage
-    localStorage.removeItem(storageName);
+   // remove from local storage
+   localStorage.removeItem(storageName);
 
-    // update the stored gameModel with a new one
-    gameModel.update(g => g = new GameModel());
+   // update the stored gameModel with a new one
+   gameModel.update(g => g = new GameModel());
 }

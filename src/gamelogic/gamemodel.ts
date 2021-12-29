@@ -7,18 +7,18 @@ import { loadSaveGame } from './saveloadfunctions';
  */
 export class SaveData {
 
-    // Used to hold the current money the player has, initialized at 0
-    public money : number = 0;
+   // Used to hold the current money the player has, initialized at 0
+   public money: number = 0;
 
-    // Used to hold which upgrades have been bought, and the quantity
-    // we will only save the id and the qty of each upgrade to avoiding wasting save game storage
-    public upgradesBought : number[] = [];
+   // Used to hold which upgrades have been bought, and the quantity
+   // we will only save the id and the qty of each upgrade to avoiding wasting save game storage
+   public upgradesBought: number[] = [];
 
-    // Used to hold which upgrades have been generated, and the quantity
-    public upgradesGenerated : number[] = [];
+   // Used to hold which upgrades have been generated, and the quantity
+   public upgradesGenerated: number[] = [];
 
-    // Used to hold when the game was last saved, needed to calculate offline progress
-    public lastSaved : number = 0;
+   // Used to hold when the game was last saved, needed to calculate offline progress
+   public lastSaved: number = 0;
 }
 
 /**
@@ -26,35 +26,35 @@ export class SaveData {
  * It will be accessible from anywhere in the game using svelte stores.
  */
 export class GameModel {
-    public saveData : SaveData;
+   public saveData: SaveData;
 
-    public constructor() {
-        // when we first create the game model we need to load any save data from localstorage
-        this.saveData = loadSaveGame();
-    }
+   public constructor() {
+      // when we first create the game model we need to load any save data from localstorage
+      this.saveData = loadSaveGame();
+   }
 
-    /**
-     * Add money to the save data
-     * @param value Amount of money to add
-     */
-    public addMoney(value : number) {
-        if (!isNaN(value)) {
-            this.saveData.money += value;
-        }
-    }
+   /**
+    * Add money to the save data
+    * @param value Amount of money to add
+    */
+   public addMoney(value: number) {
+      if (!isNaN(value)) {
+         this.saveData.money += value;
+      }
+   }
 
-    /**
-     * Takes money from the save data.
-     * Returns true if there was enough money, false if not.
-     * @param value Amount of money to spend
-     */
-    public spendMoney(value : number) : boolean {
-        if (!isNaN(value) && this.saveData.money >= value) {
-            this.saveData.money -= value;
-            return true;
-        }
-        return false;
-    }
+   /**
+    * Takes money from the save data.
+    * Returns true if there was enough money, false if not.
+    * @param value Amount of money to spend
+    */
+   public spendMoney(value: number)  {
+      if (!isNaN(value) && this.saveData.money >= value) {
+         this.saveData.money -= value;
+         return true;
+      }
+      return false;
+   }
 }
 
 /**
@@ -67,5 +67,5 @@ export const gameModel = writable(new GameModel());
  * This will trigger the svelte components to re-evaluate and update their content.
  */
 export function updateGameModel() {
-    gameModel.update(m => m = m);
+   gameModel.update(m => m = m);
 }
